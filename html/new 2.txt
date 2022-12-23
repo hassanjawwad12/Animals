@@ -1,0 +1,120 @@
+//Assignment 1 
+//Math Solver 
+//Hassan Jawwad 20L-1122
+#include<iostream>
+using namespace std;
+
+template <class T>
+
+class Polynomial
+{
+
+private:
+	class Term
+	{
+	public:
+		T exponent;
+		T coffecient;
+		Term* link;
+
+	};
+	
+	Term* head;
+	int size;
+public:
+	Polynomial()
+	{
+		//The constructor is formed 
+		head = nullptr;
+
+	}
+	void form()
+	{
+
+		int number;
+		int C, E;
+		//C represents coffecient 
+		//E represents exponent 
+		cout << "Enter the number of terms: ";
+		cin >> number;
+		//The user enter the number of terms in the polynomial 
+
+		for (int iterator = 1; iterator < (number + 1); iterator++)
+		{
+			//The loop will run for the number of terms of the polynomial the user has entered 
+
+
+			cout << "Enter the coffeciant of the term " << iterator << " : ";
+			cin >> C;
+			//The user enter the coffeciant of terms in the polynomial
+			cout << "Enter the exponent of the term " << iterator << " : ";
+			cin >> E;
+			//The user enter the exponent of terms in the polynomial
+
+			Insert(head, C, E);
+		}
+	}
+	void Insert(Term* Head, int co, int ex)
+	{
+		Term* temp;
+		Term* P = malloc(sizeof(Term));
+		P->coffecient = co;
+		P->exponent = ex;
+		P->link = Head;
+		if (link == nullptr || ex > link->exponent)//This is checking the power of the exponent 
+		{
+			P->link = Head;
+			Head = P;
+			//We insert new node infront of that node 
+			//if exponenent of that node is greater than the exponent of the head node 
+		}
+		else
+		{
+			temp = Head;
+			while (temp->head != nullptr && temp->head->exponent > ex)
+			{
+				temp = temp->head;
+				P->head = temp->head;
+				temp->head = P;
+			}
+		}
+
+
+	}
+	void print()
+	{
+		if (head == nullptr)
+		{
+			cout << "The linked list is empty " << endl;
+		}
+		else
+		{
+			Term* temp = head;
+			while (temp != nullptr)
+			{
+				cout << temp->coffecient << "x^" << temp->exponent << endl;
+				temp = temp->head;
+				if (temp != nullptr)
+				{
+					cout << "+";
+				}
+				else
+				{
+					cout << "\n";
+				}
+			}
+		}
+	}
+
+};
+
+int main()
+{
+	
+	Polynomial<int> P;
+	Polynomial<int> P2;
+	cout << "Enter the polynomial: ";
+	P.form();
+	P.print();
+	return 0;
+}
